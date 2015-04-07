@@ -1,0 +1,21 @@
+An example of simulated annealing algorithm applied to finding optimum shape of a soap membrane on a cylinder defined as:
+1. a circle with radius 1 in z=0 plane
+2. a circle with radius 1 in z=h plane
+3. a line connecting [1,0,0] with [1,0,h]
+
+Calculus of variations leads to a set of equations for a function of 2 variables (radius as a function of angle and z)
+The optimum numerical method for this problem is a simple local optimisation algorithm.
+
+In this implementation, radii of free nodes are randomly modified, total area is calculated as the sum of areas of all triangles.
+Optimum annealing coded in C++ would modify positions of each node one by one.
+This ve3ctorised implementation moves all nodes at once.
+It is good to scale each random move by the distance from constraining circles/line (see randMoveCyli.m).
+
+The main script is in bubble.m. 
+Main parameters of the simulation are found therein.
+All remaining procedures are implemented as octave functions.
+Drawing is this complicated as splot in gnuplot is used afterwards.
+
+Usage:
+  $  octave bubble.m
+  $  gnuplot graf.plt
