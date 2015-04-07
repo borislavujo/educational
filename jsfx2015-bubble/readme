@@ -8,7 +8,7 @@ The optimum numerical method for this problem is a simple local optimisation alg
 
 In this implementation, radii of free nodes are randomly modified, total area is calculated as the sum of areas of all triangles.
 Optimum annealing coded in C++ would modify positions of each node one by one.
-This ve3ctorised implementation moves all nodes at once.
+This vectorised implementation moves all nodes at once.
 It is good to scale each random move by the distance from constraining circles/line (see randMoveCyli.m).
 
 The main script is in bubble.m. 
