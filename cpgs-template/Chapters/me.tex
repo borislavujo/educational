@@ -1,0 +1,72 @@
+\section{Master Equations}
+
+A dynamical system\cite{Holodniok1986} is a tuple \(\left\{ {\bf S} , \varphi \right\}\), where ${\bf S}$ is the phase space and $\varphi$ is a mapping \(\varphi : {\bf S} \times \mathbb{R} \rightarrow {\bf S} \) satisfying two conditions:
+\begin{equation}
+\label{eq:dyn-conds}
+\begin{aligned}
+\begin{split}
+\varphi({\bf x}, 0) & = {\bf x} & \forall {\bf x} \in {\bf S} &
+\\
+\varphi(\varphi({\bf x},t), s) & = \varphi({\bf x}, t+s) ~~~ & \forall t,s \in \mathbb{R}, & ~ \forall {\bf x} \in {\bf S} ~.
+\end{split}
+\end{aligned}
+\end{equation}
+The physical meaning of the real number $t$ in equation (\ref{eq:dyn-conds}) is the evolution time between states ${\bf x}$ and $\varphi({\bf x},t)$.
+The first passage time (FPT) can be defined for each point ${\bf x}$ in ${\bf S}$ and a set of points ${\rm C} \subset {\bf S}$ as the minimum positive value of time $t^{fp}_{\rm C}$ satisfying the condition
+\begin{equation}
+\label{eq:dynamika}
+\varphi({\bf x}, t^{fp}_{\rm C}) \in {\rm C} ~.
+\end{equation}
+
+The ultimate goal of studies in dynamics is to find an approximation of $\varphi$ that is accurate and easy to evaluate.
+In the case of classical molecular systems, the phase space ${\bf S}$ is a product of an $N$-dimensional momentum and an $N$-dimensional configuration space. 
+The dynamics $\varphi$ (called also the phase flow) are given by a Hamiltonian vector field determined by the PES, generating an autonomous system of 2$N$ ordinary differential equations (SODE):
+\begin{equation}
+\label{eq:vect-field}
+\begin{aligned}
+\begin{split}
+\dt{q}_i & = \frac{p_i}{m_i}
+\\
+\dt{p}_i & = - \frac{\partial \mathscr{H}({\bf q},{\bf p})}{\partial q_i} ~,
+\end{split}
+\end{aligned}
+\end{equation}
+where $q_i$ and $p_i$ are the $i^{\rm th}$ components of an $N$-dimensional spatial coordinate vector ${\bf p}$ and an $N$-dimensional momentum vector ${\bf p}$, respectively. $m_i$ is the mass of the $i^{\rm th}$ particle.
+The Hamiltonian $\mathscr{H}$ generally consists of a non-linear function of coordinates ${\bf q}$ (potential energy $\mathscr{V}({\bf q})$) and the kinetic energy $\mathscr{T}({\bf p}) = \sum_i p_i^2 /2 m_i$.
+Evaluation of phase flow in constant time is possible only exceptionally for such a system.
+The dynamics are usually simulated by a numerical integration of the SODE (\ref{eq:vect-field}), which scales linearly with the length and the number of the simulated trajectories.
+
+A common approach to simplify Equation (\ref{eq:vect-field}) is to discretise the phase space into boxes.
+In chemistry, this approach is widely used.
+Configuration space boxes correspond to species (molecules, ions, radicals etc.) and kinetic equations describe the evolution of the populations in the boxes.
+If only unimolecular reactions occur, which is the case for structural transitions, the system (\ref{eq:vect-field}) of kinetic equations reduces to a linear homogeneous SODE:
+\begin{equation}
+\label{eq:linear-sode}
+\dt{\bf x} = {\bf A} {\bf x} ~,
+\end{equation}
+where each component of vector ${\bf x}$, $x_i$, is a population of the $i^{\rm th}$ box and ${\bf A}$ is the transition matrix specific to the system and the discretisation.
+Equation (\ref{eq:linear-sode}) has an analytical solution
+\begin{equation}
+\label{eq:sode-sol}
+{\bf x}(t) = e^{\displaystyle{\bf A} t} ~ {\bf x}(0) ~.
+\end{equation}
+The right-hand side of equation (\ref{eq:sode-sol}) can be evaluated accurately and quickly for reasonably large systems (up to millions of boxes).
+
+In the context of conformational transitions, equation (\ref{eq:linear-sode}) is called the master equation.\cite{Gillespie1992, Pande2010b}
+If the space is divided into $n$ boxes, information about the dynamical behaviour of the system is reduced to $n^2-n$ elements of ${\bf A}$, also called the rate constants.
+The answer to the question of {\bf how} the process occurs is given by the boxes undergoing a significant population change during the process.
+In chemistry, the set of discrete paths through the boxes is called the reaction mechanism.
+The question of ${\bf how ~ fast}$ the process occurs is answered by the value of the overall rate constant, which has to be evaluated by a simulation of the system or using other approximations.
+Models for studying the evolution of the populations in the configuration space boxes are special cases of Markov state models (MSM) and have been recently successfully used for studying biomolecules.
+\cite{Kasson2006, Kelley2008}
+
+Discretisation of the phase space is a good approximation if the transition from one box to another follows exponential kinetics.
+In phase space, such behaviour implies an exponential distribution of the time lengths of the reactive trajectories.
+This distribution usually applies if the species are separated by high energy barriers.
+However, the presence of high energy barriers dividing the species is neither a necessary nor a sufficient condition.
+Another important requirement of the approximation is the decorrelation of input and output trajectories.
+The behaviour of the species must be independent on the reaction in which it was produced.\cite{vanKampen1992}
+Every discretisation should be checked for the applicability of the MSM,\cite{Chodera2006b} for example by comparing the internal equilibration time\cite{Chodera2007} with the characteristic time of the transition.
+More detailed theory and applications of MSM's to biomolecules can be found in methodology papers\cite{Chodera2006a, Noe2008, Bowman2009a} and recent reviews.\cite{Bowman2009b, Pande2010b}
+
+

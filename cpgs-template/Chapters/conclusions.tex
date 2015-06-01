@@ -1,0 +1,44 @@
+\chapter{Conclusions and Future Work}
+
+In this work, a new formula for calculating rate constants by boxed molecular dynamics simulations is presented.
+The formula is based on the concept of first passage times defined in the phase space and makes use of the fact that each trajectory of non-zero time length contains an infinite number of phase points for averaging.
+A theoretical formalism is developed and it is shown that the present approach does not require the assumption of strictly exponential relaxation.
+Toy models were used to demonstrate that constraining does not disturb the equilibrium distribution within the box and that FPT-BXD provides good rate constants for modelling in terms of the master equation.
+The exact TST rate constants were shown to agree with the exact classical rate constants for high energy barriers.
+A method for estimating non-Markovian behaviour has been proposed.
+Other approaches for rate constant calculation might also benefit from the proposed sampling formula. 
+For example, in forward flux sampling,\cite{Allen2009, Kratzer2013} the MFPT can be used instead of the equilibrium (reactive flux) formulation for the calculation of the escape rate from the box representing the reactants.
+
+The previous BXD method\cite{Glowacki2009} can be used to accurately reproduce the thermodynamics of rare events if a proper velocity inversion procedure is employed, but the FPT-BXD must be used to simulate dynamics of the system.
+The space can be split into many boxes and the system can be simulated in terms of the master equation, or the rate constants of transitions between selected boxes can be calculated by a graph transformation method.\cite{Wales2009}
+Apart from robustness with respect to dividing surface roughness, and properly including the effect of internal barriers, the newly developed method can be used for boxes with dividing surfaces that do not correspond to high energy barriers, which is often the case for physical systems of interest.
+The method also uses deterministic MD, so it does not depend on a phenomenological friction constant.
+
+Preliminary results for FPT-BXD simulations of an ${\rm LJ_7^{2D}}$ cluster with boxes defined by Voronoi construction show that small boxes can result in high correlation between the input and output trajectories.
+Steep energy barriers can make partitioning of the configuration space into boxes to provide efficient sampling difficult.
+In further studies, we plan to further benchmark and optimise the simulation protocol:
+\begin{itemize}
+
+\item The most important short-term aim is to develop an inversion procedure that correctly reproduces the equilibrium flux and MFPT's. The inversion procedure could be then also used to simulate small neighbourhoods of stationary points efficiently in order to correct the TST rate constants including anharmonicity. An entirely different initialisation procedure, such as using points from the simulation not located at the boundaries, can be used as a reference.
+
+\item More complicated toy models, such as the PES of a collinear atom transfer reaction,\cite{Secrest1966} can be used to gradually proceed from one particle in two dimensions to more realistic systems. Models with steep barriers and increasingly complex landscapes can be used to study the efficiency limits of the method.
+
+\item There is much scope for further theoretical development. Understanding how to divide the configuration space boxes into a larger number of phase space boxes with efficient determination of the rate constants using FPT-BXD would also broaden the applicability of the method.
+
+\item FPT-BXD can be coupled with hyperdynamics\cite{Voter1997} in order to sample deep minima without partitioning the configuration space of system into more boxes along transition paths.
+
+\item Simulations of ${\rm LJ_7^{2D}}$ have shown that the selection of the boxes affects the efficiency of the rate constant calculation. Boxes were defined by box centres used in Voronoi tesselation. In weighted Voronoi tesselation, the partitioning depends also on {\it ad hoc} parameter $w(i,j)$ [see equation (\ref{eq:voronoi})] defined for each pair of boxes. We currently use $w(i,j) \equiv 1$ for every pair. Automatic on-the-fly modification of this parameter in order to achieve comparable MFPT's in neighbouring boxes can increase efficiency of the algorithm. Box centres could be defined by a method similar to the one used by Chodera {\it et al.}\cite{Chodera2007} for large systems.
+
+\end{itemize}
+
+In future, we plan to apply the method to interesting systems:
+\begin{itemize}
+\item Application to three-dimensional clusters requires a reliable and fast structural alignment procedure. The currently implemented algorithm for 2D alignment can be generalised for finding the optimum permutation-rotations isomers in 3D. The golden section spiral algorithm can be used for finding evenly distributed points on a sphere.\cite{Saff1997}
+
+\item The alanine dimer could serve as a good system for benchmarking the method. Trp-cage and other similar small peptides can be used as test systems and then larger proteins can be studied.
+
+\item The dynamics of large proteins can be simulated with FPT-BXD, perhaps in combination with some recently developed rigidification algorithms.\cite{Noid2008, Kusumaatmaja2012} The dynamics of protein conformational transitions and protein folding are being studied extensively\cite{Best2012, Dill2012} and FPT-BXD has the potential to contribute.
+
+\end{itemize}
+
+

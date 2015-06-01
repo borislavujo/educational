@@ -1,0 +1,85 @@
+\section[Mean First Passage Time from Boxed Molecular Dynamics]{Mean First Passage Time from Boxed \\ Molecular Dynamics}
+
+As discussed in the previous section, the MFPT does not generally need to be the optimal fit of $P(t)$.
+Provided that a sufficient number of subtrajectories is sampled, the rate constant of exiting the box can be directly fitted to $P(t)$ obtained from the simulation as:
+\begin{equation}
+\label{eq:pt-exp}
+P(t) = 1 - \frac{\displaystyle \int_0^{t} \! n(\tau) ~ {\rm d} \tau}{\displaystyle \int_0^{\infty} \!\! n(\tau) ~ {\rm d} \tau} ~,
+\end{equation}
+where $n(\tau)$ is the number of sampled subtrajectories shorter than $\tau$. 
+However, the MFPT can be more convenient for the reasons discussed above.
+
+For a sufficiently long trajectory, the ensemble average is equal to the time average in an ergodic system:
+\begin{equation}
+\label{eq:erg}
+\langle X \rangle 
+= \frac{\displaystyle{\int \! X({\bf p} ,{\bf q}) ~ {\rm d} {\bf p} {\rm d} {\bf q}}}{\displaystyle{\int 1 ~ {\rm d} {\bf p} {\rm d} {\bf q}}}
+= \frac{\displaystyle{\int \! X({\bf p}(t),{\bf q}(t)) ~ {\rm d} \it t}}{\displaystyle{\int 1 ~ {\rm d} t}} ~,
+\end{equation}
+where $X$ is a quantity defined for each phase state, in our case the first passage time.
+The denominator in the latter fraction is simply the time length (evolution time) of the trajectory, $\tau$.
+Let us consider two boxes A and B in the configuration space.
+The average over box A is
+\begin{equation}
+\label{eq:ergbox}
+\langle X \rangle_{\rm A}
+= \frac{\displaystyle{\int X({\bf p},{\bf q}) ~ H ({\bf q}, {\rm A}) ~ {\rm d} {\bf p} {\rm d} {\bf q}}}
+{\displaystyle{\int  H ({\bf q}, {\rm A}) ~ {\rm d} {\bf p} {\rm d} {\bf q}}}
+= \frac{\displaystyle{\int X({\bf p}(t),{\bf q}(t)) ~ H ({\bf q}(t), {\rm A}) ~ {\rm d} t}}
+{\displaystyle{\int H ({\bf q}(t), {\rm A}) ~ {\rm d} t}} ~,
+\end{equation}
+where $H({\bf q}\rm,A)$ is one if ${\bf q}\rm$ belongs to A and zero otherwise.
+The denominator is the time length of the part of the trajectory lying in A.
+
+Calculation of the MFPT proceeds as follows.
+Propagation of a trajectory can be started (time $t=0$) from any phase state in A.
+The simulation is stopped immediately after it hits $\partial \rm AB$, so it has time length $\tau^{\rm A\rightarrow \partial AB}$.
+The first passage time is defined for each point as
+\begin{equation}
+t^{fp}_{\rm A \rightarrow \partial AB}(\bf p\it (t), \bf q\it (t)) = \tau^{\rm A \rightarrow \partial  AB} - t ~.
+\end{equation}
+For all phase states that lie on the trajectory and in box A, we can calculate the MFPT:
+\begin{equation}
+{\rm MFPT}_{\rm A \rightarrow \partial AB} = \frac{\displaystyle{\int_0^{\tau^{\rm A \rightarrow \partial AB}} \!\!\!\!\! (\tau^{\rm A \rightarrow \partial AB} - t) ~ H ({\bf q}(t), {\rm A}) ~ {\rm d} t}}
+{\displaystyle{\int_0^{\tau^{\rm A \rightarrow \partial AB}} \!\!\!\! H ({\bf q}(t), {\rm A}) ~ {\rm d} t}} ~.
+\end{equation}
+Now let us consider a configuration space divided into two boxes A and B, so that every trajectory escaping from A ends in B.
+A and B touch, so the propagation of the trajectory is stopped at the same time as it leaves box A.
+The MFPT calculated from one such trajectory is
+\begin{equation}
+\label{eq:fpt}
+\langle t^{fp}_{\rm A \rightarrow \partial AB} \rangle_{\rm 1traj} = \frac{\displaystyle \int_0^{\tau^{\rm A \rightarrow \partial AB}} \!\!\!\! (\tau^{\rm A \rightarrow \partial AB} - t) ~ {\rm d} t}
+{\displaystyle \int_0^{\tau^{\rm A \rightarrow \partial AB}} \!\!\!\!\! 1 ~ {\rm d} t}
+= \frac{\tau^{\rm A \rightarrow \partial AB}}{2} ~.
+\end{equation}
+% = \frac{\frac{\displaystyle (\tau^{\rm A \rightarrow \partial AB})^2}{\displaystyle 2}}{\tau^{\rm A \rightarrow \partial AB}} =
+For a sample of $n$ trajectories, the MFPT is a time-weighted average of first passage times
+\begin{equation}
+\label{eq:aver}
+\rm MFPT_{\rm A \rightarrow \partial AB} 
+= \frac{\sum_{i=1}^n \tau^{\rm A \rightarrow \partial AB}_i \langle t^{\it fp}_{\rm A \rightarrow \partial AB \it} \rangle_{i}}{\sum_{i=0}^n \tau^{\rm A \rightarrow \partial AB}_i} ~.
+\end{equation}
+Combining equations (\ref{eq:fpt}) and (\ref{eq:aver}) gives
+\begin{equation}
+\label{eq:mfptk}
+\rm MFPT_{\rm A \rightarrow \partial AB} 
+= \frac{\sum_{i=1}^n (\tau^{\rm A \rightarrow \partial AB}_i)^2}{2 \sum_{i=1}^n \tau^{\rm A \rightarrow \partial AB}_i} ~.
+\end{equation}
+
+The equilibrium (TST) and average (MFPT) rate constants become equal for exactly exponential distributions of FPT's.
+Consistently, formulae (\ref{eq:eq-flux-simul}) and (\ref{eq:mfptk}) then become identical in the limit of an infinite number of sampled trajectories.
+For an infinite number of sampled trajectories, we can write equation (\ref{eq:mfptk}) as 
+\begin{equation}
+\label{eq:mfptk-limit}
+{\rm MFPT}_{\rm A \rightarrow \partial AB} 
+=  \frac{\displaystyle k \int_0^{\infty} \!\!  \tau^2  ~ e^{-k \tau} }{\displaystyle 2 k \int_0^{\infty} \!\! \tau ~ e^{-k \tau}} 
+= \frac{\frac{\displaystyle 2 k}{\displaystyle k^3}}{\frac{\displaystyle 2 k}{\displaystyle k^2}} = \frac{\displaystyle  1}{\displaystyle k} ~.
+\end{equation}
+Equation (\ref{eq:eq-flux-simul}) implies that the MFPT is $1 / k$:
+\begin{equation}
+\label{eq:eq-flux-limit}
+{\rm MFPT}^{\rm TST}_{\rm A \rightarrow \partial AB} 
+= \frac{\displaystyle k \int_0^{\infty} \!\! \tau ~ e^{-k \tau} }{\displaystyle 2 ~ k \int_0^{\infty} \!\! e^{-k \tau}} 
+= \frac{\displaystyle \frac{\displaystyle k}{\displaystyle k^2}}{\displaystyle 1} = \displaystyle \frac{1}{ k} ~.
+\end{equation}
+

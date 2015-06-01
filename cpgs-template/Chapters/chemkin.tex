@@ -1,0 +1,74 @@
+\section{Rate Constants in Chemistry}
+
+A classical approach to describe unimolecular elementary reactions by rate equations and to calculate the rate constant given the evolution proceeds as follows.
+Let us consider a simple elementary irreversible reaction 
+\begin{equation}
+\label{eq:A-to-B}
+{\centering
+\rm A \rightarrow B} ~.
+\end{equation}
+The dimensionless concentration $a(t) = \rm[A](t) / \rm[A](0)$ follows power law kinetics
+\begin{equation}
+\label{eq:simple}
+v_{\rm A \rightarrow B}(t) = \frac{\rm d \it b (t)}{\rm d \it t}
+= - \frac{\rm d \it a (t)}{\rm d \it t} =  k_{\rm A \rightarrow B} ~ a(t) ~,
+\end{equation}
+with boundary conditions
+\begin{equation}
+a(0) = 1 , ~ \lim_{t \rightarrow \infty} a(t) = 0 ~,
+\end{equation}
+where $v_{\rm A \rightarrow B}(t)$ is the reaction rate at time $t$ and $k_{\rm A \rightarrow B}$ is the rate constant.
+Solving the differential equation (\ref{eq:simple}) leads to 
+\begin{equation}
+\label{eq:A-to-B-a-of-t}
+a(t) = e^{- k_{\rm A \rightarrow B} t}
+\end{equation}
+and 
+\begin{equation}
+\label{eq:v}
+v_{\rm A \rightarrow B}(t) = k_{\rm A \rightarrow B} e^{- k_{\rm A \rightarrow B} t} ~.
+\end{equation}
+The rate constant $k_{\rm A \rightarrow B}$ can be calculated from the evolution of species A as:
+\begin{equation}
+\label{eq:diff-A-to-B}
+k_{\rm A \rightarrow B} = 
+- \frac{\frac{\displaystyle \rm d}{\displaystyle{{\rm d} t}} {\displaystyle{a(t)}}}{a(t)} ~,
+\end{equation}
+which is independent of time $t$ in the case of exponential behaviour for $a(t)$.
+The rate constant can be calculated by fitting the evolution of $a(t)$ with (\ref{eq:A-to-B-a-of-t}) or by evaluating the reciprocal of the mean value of $v_{\rm A \rightarrow B}(t)$:
+\begin{equation}
+\label{eq:int-A-to-B}
+k_{\rm A \rightarrow B} = \frac{\displaystyle{\int_0^{\infty}  \!\!  v_{\rm A \rightarrow B}(t) \rm d \it t}}
+{\displaystyle{\int_0^{\infty} \!\! t ~ v_{\rm A \rightarrow B}(t) \rm d \it t}} ~.
+\end{equation}
+
+Let us now discuss the same system with a backward reaction,
+\begin{equation}
+\label{eq:A-to-B-to-A}
+{\centering
+\rm A \rightleftharpoons B} ~.
+\end{equation}
+The concentration of species A evolves in time as
+\begin{equation}
+\label{eq:A-to-B-and-back-a-of-t}
+a(t) = \frac{k_{\rm B \rightarrow A}}{k_{\rm A \rightarrow B} + k_{\rm B \rightarrow A}} + \frac{k_{\rm A \rightarrow B}}{k_{\rm A \rightarrow B} + k_{\rm B \rightarrow A}} e^{\displaystyle{- (k_{\rm A \rightarrow B} + k_{\rm B \rightarrow A}) t}} ~,
+\end{equation}
+and the rate of reaction as
+\begin{equation}
+\label{eq:A-to-B-and-back-v-of-t}
+v_{\rm A \rightarrow B}(t) = k_{\rm A \rightarrow B} e^{\displaystyle{- (k_{\rm A \rightarrow B} + k_{\rm B \rightarrow A}) t}} ~.
+\end{equation}
+Knowing the equilibrium constant of the system
+\begin{equation}
+\label{eq:eq-const}
+K_{\rm A \/ B} = \frac{k_{\rm A \rightarrow B}}{k_{\rm B \rightarrow A}} ~,
+\end{equation}
+we can calculate the rate constant with a method analogous to (\ref{eq:diff-A-to-B}) as the solution of equations (\ref{eq:eq-const}) and
+\begin{equation}
+\frac{k_{\rm A \rightarrow B}}{k_{\rm A \rightarrow B} + k_{\rm B \rightarrow A}} = 
+- \frac{ \frac{\displaystyle{\rm d}}{\displaystyle{{\rm d} t}} a(t)}{a(t)}
+~.
+\end{equation}
+By analogy with system (\ref{eq:A-to-B}), the rate constant can be calculated without solving a system of algebraic equations by fitting $a(t)$ with (\ref{eq:A-to-B-and-back-a-of-t}) or using equation (\ref{eq:int-A-to-B}).
+
+

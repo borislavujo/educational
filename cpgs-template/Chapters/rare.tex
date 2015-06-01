@@ -1,0 +1,52 @@
+\section{Simulation of Rare Events}
+
+A rare event can be loosely defined as a process that would take too much time to simulate by conventional methods.
+The existence of rare events arises from the fact that some systems show interesting behaviour on time scales much larger than the shortest vibrational time determined by the structure of their PES.
+Examples of such events are protein folding, conformational transitions of large biomolecules, ions passing through a membrane channel, chemical reactions and many others.
+General approaches to simulating rare events include: freezing uninvolved degrees of \mbox{freedom,\cite{Ryckaert1977, Frenkel2002}} using multiple time steps,\cite{Tuckerman1992} parallelisation,\cite{Voter1998} parallel tempering,\cite{Swendsen1986} biasing the potential,\cite{Laio2002} and modification of the scaling behaviour with barrier height from exponential to polynomial by reformulating the sampling from an initial value problem to a boundary value problem.\cite{Weinan2002b}
+
+The unprecedented advancement in computational power over the last 30 years gave rise to new, more efficient methods for the simulation of rare events.
+While calculation of energy profiles along a selected coordinate is well understood and relatively reliable,\cite{Chipot2007}
+calculation of rate constants is usually based on TST, which provides the upper limit for the reaction rate.
+Here only the methods most relevant to this work are briefly explained.
+More details about the methods can be found in recent reviews\cite{Dellago2009, Rohrdanz2013} or Danielle Moroni's thesis.\cite{Moroni2005b}
+
+Perhaps the most advanced method for calculation of classical rate constants is transition path sampling (TPS).\cite{Dellago1998a, Dellago1999, Bolhuis2002}
+By analogy with Metropolis Monte Carlo,\cite{Metropolis1953} the sampling of transition paths can be efficient because only small steps are made from already known highly probable paths.
+The original formulation of random walks in the transition path space was extended to deterministic dynamics.\cite{Bolhuis1998}
+TPS not only provides highly accurate estimates of rate constants, but also the most probable transition path.
+The efficiency can be improved by defining more dividing surfaces, leading to a similar method, transition interface sampling.\cite{Moroni2005a,Moroni2005b}
+TPS has also been recently improved to overcome barriers in path space more easily.\cite{Borrero2010}
+Nevertheless, the computational cost of simulating a sufficient number of transition paths limits its general usability.
+
+Constraining the dynamics to a subset of the phase space can enforce simulation of the desired rare event.
+In the Blue Moon method,\cite{Carter1989, Paci1991} the system is constrained in a hypersurface in the configuration space and the mean force perpendicular to this surface is calculated.
+Paci and Ciccotti used the method to calculate the transmission coefficient for vacancy migration in a Lennard-Jones crystal.\cite{Paci1992}
+The formula for the free energy was later modified so that it contains only explicit variables\cite{Sprik1998} and was extended for the use of a general vectorial coordinate.\cite{Ciccotti2005}
+Other examples of methods based on constraining MD are accelerated dynamics\cite{Martinez-Nunez2006} introduced by Shalashilin and co-workers, and boxed molecular dynamics,\cite{Glowacki2009} which constrains the dynamics in a box in configuration space.
+
+Many other accelerated molecular dynamics methods have been proposed.
+Hyperdynamics\cite{Voter1997} fills boxes with a biasing potential and the times of processes on the resulting shallower potential are renormalised accordingly.
+Various biasing potentials have recently been used.\cite{Hamelberg2004, Doshi2012}
+Temperature accelerated MD\cite{Sorensen2000} calculates the rate constants at higher temperatures and extrapolates to low temperature assuming the Arrhenius equation.
+
+In milestoning\cite{Faradjian2004} short simulations between predefined hypersurfaces in configuration space (called milestones) are performed instead of a single long one.
+The dynamical behaviour is calculated from statistical properties of the short trajectories.
+The method gives accurate results if isocommittor surfaces (committor = 0.5) are used as the milestones.\cite{Vanden-Eijnden2008}
+Milestoning with boxes defined by Voronoi tesselation\cite{Vanden-Eijnden2009} can be generally applied without any knowledge of the best reaction coordinate.
+In Voronoi partitioning of the space, a set of box centres ${\bf x}_i$ uniquely defines the boxes.
+A point in space ${\bf x}$ belongs to box A if
+\begin{equation} 
+\label{eq:voronoi}
+D({\bf x},{\bf x}_A) < w(A,i) D({\bf x},{\bf x}_i), ~~~\forall i \neq A ~,
+\end{equation}
+where $D({\bf x},{\bf y})$ means the distance between points ${\bf x}$ and ${\bf y}$.
+The root mean square distance (RMSD) is usually used as the measure $D$.
+In classical Voronoi tesselation, $w(i,j)$ is equal to 1 for any pair of boxes $i,j$.
+
+Significantly increased computational efficiency can be achieved with discrete path sampling\cite{Wales2002, Wales2006, Carr2009} (DPS) for systems with a reasonably small numbers of low-lying minima.
+Transition states between the minima are found by geometry \mbox{optimisation\cite{Pancir1975, Cerjan1981, Henkelman2000}} and the rate constants between neighbouring minima are calculated by an appropriate method, commonly the TST approach.
+The harmonic approximation can be used to allow fast estimation of the TST rate constants.
+A framework for systematic improvement of the rate constants would be beneficial.
+Phenomenological rate constants between the reactant and product sets of states can be calculated using the new graph transform procedure\cite{Wales2009} (NGT) in which species defined as the basins of attraction of local minima are gradually removed while the transition matrix is renormalised.
+

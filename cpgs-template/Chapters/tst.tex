@@ -1,0 +1,72 @@
+\section{Rate Constant Calculation}
+
+The scientific development of the theory of chemical dynamics dates back to the $19^{\rm th}$ century when van't Hoff studied the dependence of reaction rate on temperature \cite{vantHoff1884} and Arrhenius introduced the concept of activation energy.\cite{Arrhenius1889}
+In the following 50 years, great advances were achieved.
+Farkas first used the concept of equilibrium flux to calculate reaction rates.\cite{Farkas1927}
+Eyring introduced the concept of an ``activated complex",\cite{Eyring1935} the saddle point on the PES connecting the reactant and the product.
+He derived a formula for the ``absolute" rate constant for a reaction of any order
+\begin{equation}
+\label{eq:eyring}
+k^{\rm Eyring}_{\rm A\rightarrow B}(T) = \kappa \frac{1}{\beta h} \frac{Z^{\ddagger}}{Z} e^{- \beta E_A} ~,
+\end{equation}
+where $\kappa$ is the transmission coefficient, an {\it ad hoc} parameter being generally about unity, and $Z^{\ddagger}$ and $Z$ are the partition sums of the activated state and the reactant, respectively. $\beta = 1 / ( k_B T )$ where $T$ is the thermodynamic temperature and $k_B$ is the Boltzmann constant, $h$ is Planck's constant and $E_A$ is the activation energy.
+The reactant, activated complex and product are explicitly defined as single points on the PES.
+
+Transition state theory\cite{Polanyi1920, Wigner1937, Wigner1939} (TST) provides the fundamental basis for the reactive flux method used predominantly today.
+In TST, the rate constant is defined as the equilibrium flux through the dividing surface divided by the population inside the reactant box.
+In 1938, Wigner summarised\cite{Wigner1938} the assumptions of TST:
+\begin{enumerate}
+\item the adiabatic separation of the movements of the electrons and nuclei (the \mbox{Born-Oppenheimer\cite{Born1927}} approximation),
+\item the motion of the nuclei can be described by classical mechanics,
+\item all trajectories crossing the dividing surface are reactive (no recrossing of the dividing surface occurs).
+\end{enumerate}
+Transition state theory is inherently a classical mechanical theory applicable for reactions in which a transition over a state with high energy is the determining \mbox{step.\cite{Wigner1937}}
+From Wigner's paper,\cite{Wigner1937} it can be inferred that he does not define species unambiguously by the dividing surface.
+The equilibrium rate constant can be calculated as an integral over the dividing surface in phase space satisfying the non-recrossing condition:
+\begin{equation}
+\label{eq:wigner}
+k^{\rm TST}_{\rm A\rightarrow B}(T) = \frac{W^2}{Z} \int \frac{{\rm d} \mathscr{H}_0 ({\bf q},{\bf p}) / {\rm d} t}{|\nabla \mathscr{H}_0 ({\bf q},{\bf p}) |} {\rm d} s ~,
+\end{equation}
+where $\mathscr{H}_0 ({\bf q},{\bf p}) = 0$ defines the surface and ${\rm d} \mathscr{H}_0 ({\bf q},{\bf p})/ {\rm d} t$ is
+\begin{equation}
+\label{eq:diff-H}
+\begin{split}
+\frac{{\rm d} \mathscr{H}_0 ({\bf q},{\bf p})}{{\rm d} t}  & = \sum_i \left( \frac{\partial \mathscr{H}_0 ({\bf q},{\bf p})}{\partial q_i} \frac{\partial (\mathscr{H}({\bf q},{\bf p}) - \mathscr{H}_0 ({\bf q},{\bf p}))}{\partial p_i} - \right.
+\\
+& \left. - \frac{\partial \mathscr{H}_0 ({\bf q},{\bf p})}{\partial p_i} \frac{\partial (\mathscr{H}({\bf q},{\bf p}) - \mathscr{H}_0 ({\bf q},{\bf p}))}{\partial q_i} \right) ~. \\
+\end{split}
+\end{equation}
+The ``total volume" $W$ in expression (\ref{eq:wigner}) is used to scale the rate constant which Wigner derived for a trimolecular reaction.
+
+The classical TST rate constant in the microcanonical ensemble was developed by Rice,\cite{Rice1927} Ramsperger,\cite{Rice1928} Kassel\cite{Kassel1928} and Marcus\cite{Marcus1956} (RRKM).
+The microcanonical rate constant for transitions from A to B, can be written as
+\begin{equation}
+\label{eq:rrkm}
+k^{\rm TST}_{\rm A\rightarrow B}(E) = \frac{g(E)}{h ~ \Omega_{\rm A}(E)} ~ ,
+\end{equation}
+where $E$ is the total energy, $\Omega_{\rm A}$ is the density of states of box A, and $g(E)$ is defined as
+\begin{equation}
+\label{eq:g}
+g(E) = \int_{V^\ddagger}^E \!\! \Omega^\ddagger (E^\prime) \rm d E^{\prime} ~ ,
+\end{equation}
+where $\Omega^\ddagger (E^\prime)$ is the density of states at the dividing surface
+and $V^\ddagger$ is the minimum potential energy of the transition state ensemble.
+From the relationship between the microcanonical and canonical ensembles it follows that $k(T)$ is the Laplace transform of $k(E)$.
+
+The third assumption was soon identified as the main cause of the divergence between the TST rate constants and the rate constants obtained from experiments.
+Chandler reformulated the rate constant\cite{Chandler1978} in the formalism of correlation \mbox{functions\cite{Kubo1957}} using Onsager's hypothesis.\cite{Onsager1931a, Onsager1931b}
+The simulation method based on this formula is known as the ``Bennett-Chandler" procedure\cite{Frenkel2002} and is usually performed in two steps.
+First, the TST rate constant is calculated.
+Second, the TST rate constant is corrected by the transmission coefficient $\kappa$:
+\begin{equation}
+\label{eq:bc-k}
+k^{\rm BC}_{\rm A\rightarrow B} = \kappa ~ k^{\rm TST}_{\rm A\rightarrow B} ~.
+\end{equation}
+$\kappa$ is calculated from the probability of recrossing obtained from simulations of trajectories starting at the dividing surface.
+
+Another approach to correct for recrossings, variational TST,\cite{Truhlar1980, Fast1998} is based on the assumption that the optimum dividing surface is the one that minimises the recrossings.
+New insights were brought by studies identifying the transition state ensemble with the hypersurface in the configuration space with the probability to reach products (committor) equal to 0.5,\cite{Pratt1986} and studies of phase space using a normally hyperbolic invariant manifold\cite{Uzer2002, Ezra2009} for construction of the transition state surface.
+Kramers studied motion of a Brown particle in a potential field \cite{Kramers1940} and derived analytical formulae for the high and low friction limits.
+His results, generalised by Grote and Hynes,\cite{Grote1980} were later shown\cite{Pollak1986} to be equivalent to TST for parabolic barriers.
+More information on recent developments of TST can be found in topic reviews.\cite{Truhlar1996, Pollak2005, Vanden-Eijnden2005}
+
