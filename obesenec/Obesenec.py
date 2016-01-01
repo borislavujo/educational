@@ -6,7 +6,6 @@ def getlines(cesta_ku):
     for i in range(len(lines)):
         if lines[i] == "":
             del lines[i]
-#        lines[i] = lines[i].rstrip()
         lines[i] = lines[i].split()[0]
     return lines
 
@@ -46,11 +45,17 @@ chybne = []
 for i in range(max_pokusov):
     omyl = 0
     while (omyl==0):
+        if "_" not in wordToShow:
+            print "Vyhral si!"
+            omyl = -1
+            break
         render(wordToShow)
-        ujo = raw_input("Zadaj pismeno: ")
+        ujo = raw_input("Zadaj pismeno: ")[0]
         if ujo in word:
-            wordToShow = insertChar(ujo, word, wordToShow)
-            
+            if ujo in wordToShow:
+                print "Toto pismeno si uz objavil"
+            else:
+                wordToShow = insertChar(ujo, word, wordToShow)
         elif ujo in chybne:
             print "Toto pismeno si uz skusal a nevydalo, tutu"
         elif (i<max_pokusov-1):
@@ -60,4 +65,7 @@ for i in range(max_pokusov):
             print "Mas uz len", max_pokusov-i-1 , "pokusov!"
         else:
             print "Prehral si!"
+            omyl = -1
             break
+    if (omyl==-1):
+        break
