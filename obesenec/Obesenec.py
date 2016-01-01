@@ -36,8 +36,6 @@ def render(wordToShow):
     print(rendered)
     
 wordList = getlines('words.txt')
-print(wordList)
-
 max_pokusov = 7
 word = getRNDword(wordList)
 wordToShow = "_" * len(word)
